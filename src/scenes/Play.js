@@ -20,18 +20,19 @@ class Play extends Phaser.Scene{
         console.log("Rocket Created:", this.p1Rocket);
 
         //add spaceship(x3)
-
-        console.log("Creating ship01...");
-        this.ship01 = new Spaceship(this, 200, 100, 'spaceship', 0, 30).setOrigin(0, 0);
-        console.log("ship01 Created:", this.ship01);
         
-        console.log("Creating ship02...");
-        this.ship02 = new Spaceship(this, 300, 150, 'spaceship', 0, 20).setOrigin(0, 0);
-        console.log("ship02 Created:", this.ship02);
+        this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 
+            'spaceship', 0, 30).setOrigin(0, 0)
+        this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 
+            'spaceship', 0, 20).setOrigin(0,0)
+        this.ship03 = new FastShip(this, game.config.width, borderUISize * 6 + borderPadding * 4, 
+            'fastship', 0, 50).setOrigin(0, 0);
         
-        console.log("Creating ship03...");
-        this.ship03 = new FastShip(this, 400, 200, 'fastship', 0, 50).setOrigin(0, 0);
-        console.log("ship03 Created:", this.ship03);
+        //bring up the rocket. got cover up by background
+        this.p1Rocket.setDepth(2);
+        this.ship01.setDepth(2);
+        this.ship02.setDepth(2);
+        this.ship03.setDepth(2);
         
         //define keys
         keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
