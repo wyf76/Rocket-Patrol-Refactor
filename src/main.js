@@ -4,7 +4,7 @@
 // Mode Mods: Track High Score (1), FIRE UI (1), 
 // BGM (1), Speed Increase (1), Rocket Control (1), Random Direction (1),
 // Explosion SFX (3), Timer (3), Parallax (3)
-// New Enemy (5), 
+// new timing (5), 
 let config={
     type: Phaser.AUTO,
     width: 640,
