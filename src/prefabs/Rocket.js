@@ -3,7 +3,6 @@ class Rocket extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
 
-        // Add object to existing scene
         scene.add.existing(this);
         this.isFiring = false;
         this.moveSpeed = 2;
@@ -11,7 +10,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
     }
 
     update() {
-        // Always allow movement
+        // Always allow horizontal movement
         if (keyLEFT.isDown && this.x >= borderUISize + this.width) {
             this.x -= this.moveSpeed;
         } else if (keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width) {
@@ -19,7 +18,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
         }
 
         // Fire button
-        if (Phaser.Input.Keyboard.JustDown(keyFIRE)) {
+        if (Phaser.Input.Keyboard.JustDown(keyFIRE) && !this.isFiring) {
             this.isFiring = true;
             this.sfxShot.play();
         }
@@ -29,22 +28,20 @@ class Rocket extends Phaser.GameObjects.Sprite {
             this.y -= this.moveSpeed;
         }
 
-        // Reset on miss
+        // Reset on miss (if it goes above UI)
         if (this.y <= borderUISize * 3 + borderPadding) {
             this.isFiring = false;
             this.y = game.config.height - borderUISize - borderPadding;
-        
-            // Subtract 1 second for missed shots
+
+            // Subtract 1 second on a miss
             if (this.scene.remainingTime > 1000) {
                 this.scene.remainingTime -= 1000;
             } else {
-                this.scene.remainingTime = 0; // Prevent negative time
+                this.scene.remainingTime = 0;
             }
-        
             // Update the timer text
             this.scene.timeText.setText(`Time: ${Math.ceil(this.scene.remainingTime / 1000)}`);
         }
-        
     }
 
     reset() {
