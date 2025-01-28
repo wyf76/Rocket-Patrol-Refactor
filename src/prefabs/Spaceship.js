@@ -4,12 +4,13 @@ class Spaceship extends Phaser.GameObjects.Sprite{
         scene.add.existing(this)
         this.points = pointValue
         this.moveSpeed = game.settings.spaceshipSpeed
+        this.direction = Phaser.Math.RND.pick(['left', 'right'])
+        if(this.direction === 'right') this.flipX = true
     }
 
     update(){
         //move spaceship left
-        this.x -= this.moveSpeed
-
+        this.x += this.direction ==='left' ? -this.moveSpeed : this.moveSpeed
         // wrap from left to right edge
         if(this.x <= 0 - this.width){
             this.x = game.config.width
